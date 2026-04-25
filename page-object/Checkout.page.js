@@ -1,0 +1,19 @@
+export class CheckoutPage {
+    constructor(page) {
+        this.page = page;
+        this.cardNumberField = page.getByPlaceholder('Card Number (16 digits)');
+        this.payNowButton = page.getByText('Pay Now');
+        this.payNowBtn = page.getByRole('button', { name: 'Pay Now' });
+        this.cardDate = page.getByPlaceholder('MM/YY');
+        this.cardCVV = page.getByPlaceholder('CVV (3 digits)');
+
+    }
+    async fillPaymentData(cardNumber, cardDate, cardCVV){
+        await this.cardNumberField.type('1234567812345678', {delay: 100});
+        await this.cardNumberField.press('Enter');
+        await this.cardDate.fill(cardDate);
+        await this.cardCVV.fill(cardCVV);
+        await this.payNowBtn.click();
+        await this.page.pause
+    }
+}
