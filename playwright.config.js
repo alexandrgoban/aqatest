@@ -30,7 +30,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     timeout: 50 * 1000,
-    headless: true,
+    headless: false,
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
@@ -43,8 +43,18 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      // use: { ...devices['Desktop Chrome'],
+      //   viewport: { width: 1920, height: 1080 } },
+
     },
+
+    {
+      name: 'api-tests',
+      testMatch: 'api.spec.js',
+      use: {
+        baseURL: process.env.API_BASE_URL
+      }
+    }
 
     // {
     //   name: 'firefox',

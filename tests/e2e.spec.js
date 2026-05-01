@@ -6,6 +6,7 @@ import { LoginPage } from "../page-object/Login.page";
 import { CatalogPage } from "../page-object/Catalog.page";
 import { BascketPage} from "../page-object/Bascket.page";
 import { CheckoutPage } from "../page-object/Checkout.page";
+import { MyAccountPage } from "../page-object/MyAccount.page";
 
 test.setTimeout(70 * 1000);
 test('user can register successfully', async ({ page }) => {
@@ -14,6 +15,7 @@ test('user can register successfully', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const catalogPage = new CatalogPage(page);
     const checkoutPage = new CheckoutPage(page);
+    const myAccountPage = new MyAccountPage(page);
 
 
     await registerPage.navigate();
@@ -24,6 +26,11 @@ test('user can register successfully', async ({ page }) => {
     await bascketPage.compareProductsDetails();
     await bascketPage.checkTotalPrice();
     await checkoutPage.fillPaymentData(cardData.cardNumber, cardData.cardDate, cardData.cardCVV);
+    await checkoutPage.successOrderMessage();
+    await checkoutPage.goToMyAccount();
+    await myAccountPage.checkFinalOrder(catalogPage.tabletPriceValue, catalogPage.coffeMachinePriceValue);
+    await myAccountPage.checkToItem();
+    await myAccountPage.logout();
 
 
 });

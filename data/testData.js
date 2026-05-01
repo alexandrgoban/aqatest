@@ -1,18 +1,29 @@
+const {faker} = require('@faker-js/faker');
 export const newUser1 = {
-    firstName: 'Alex',
-    lastName: 'Hoban',
-    email: process.env.NEW_USER_1_EMAIL,
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email: faker.internet.email(),
     password: process.env.NEW_USER_1_PASSWORD,
-    city: 'Roma',
-    country: 'Italy',
-    phone: '+49123456789',
-    street: 'Via Portuense',
-    zip: '000149'
+    city: faker.location.city(),
+    country: 'Ukraine',
+    phone: "+380981302421",
+    street: faker.location.street(),
+    zip: '12344',
 }
 
 export const cardData = {
-    cardNumber: process.env.NEW_CARD_NUMBER,
-    cardDate: process.env.NEW_CARD_DATE,
-    cardCVV: process.env.NEW_CARD_CVV,
+    cardNumber: '1234567891234567',
+    cardDate: '01/28',
+    cardCVV: faker.finance.creditCardCVV(),
 
+}
+
+export const apiDataPost = {
+    title: 'Hello',
+    body: 'Test body',
+    userId: 1,
+}
+
+export const apiDataPatch = {
+    title: 'Hello AQA',
 }
