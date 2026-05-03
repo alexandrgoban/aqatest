@@ -23,7 +23,7 @@ export class BascketPage {
     //
     //
     // }
-    async checkTotalPrice() {
+    async goToChekoutPage() {
         // if (totalNumber === firstItemPriceNumber + secondItemPriceNumber) {
         //     console.log('super');
         // }

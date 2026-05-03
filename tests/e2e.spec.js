@@ -19,47 +19,67 @@ test('Create user, login, order to items, payment', async ({ page }) => {
     const myAccountPage = new MyAccountPage(page);
     const bascketPage = new BascketPage(page);
 
+    let items;
 
-    await registerPage.openLoginPage();
-    await registerPage.fillRegistrationForm(newUser1);
-    await loginPage.login(newUser1.email, newUser1.password);
-    const items = await catalogPage.selectProduct();
-
-    await expect(catalogPage.basketCount).toBeVisible();
-    await expect(catalogPage.basketCount).toContainText('2', {timeout: 3000});
-
-    await catalogPage.goToBasket();
-
-
-    // Check products details
-    await expect(bascketPage.firstProductItem).toHaveText(items.secondProduct.name)
-    await expect(bascketPage.secondProductItem).toHaveText(items.firstProduct.name)
-    await expect(bascketPage.firstItemPrice).toHaveText(items.secondProduct.price)
-    await expect(bascketPage.secondItemPrice).toHaveText(items.firstProduct.price)
-
-    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
-    const secondItemPriceNumber = Number((await bascketPage.secondItemPrice.innerText()).replace(/\D/g, ''));
-    const totalNumber = parseInt((await bascketPage.totalValue.innerText()).replace(/[^\d.]/g, ''), 10);
-    expect(totalNumber).toBe(firstItemPriceNumber + secondItemPriceNumber);
-
-    await bascketPage.checkTotalPrice();
-
-    await checkoutPage.fillPaymentData(cardData.cardNumber, cardData.cardDate, cardData.cardCVV);
-
-    await expect(checkoutPage.successOrder).toBeVisible({timeout: 8000});
-    await expect(checkoutPage.page).toHaveURL('/checkout');
-
-    await checkoutPage.goToMyAccount();
-    await expect(checkoutPage.page).toHaveURL('/account');
-
-    const totalPrice = Number(items.firstProduct.price.replace('$','')) + Number(items.secondProduct.price.replace('$',''));
-    await expect(myAccountPage.totalAmountField).toContainText(`${totalPrice}`);
-
-    await expect(myAccountPage.items.first()).toBeVisible();
-    await expect(myAccountPage.items.last()).toBeVisible();
-    await expect(myAccountPage.logoutButton).toBeEnabled();
-
-    await myAccountPage.logout();
-
+    await test.step('Open log in page' , async () => {
+        await registerPage.openLoginPage();
+    })
+    await test.step('Register new user' , async () => {
+        await registerPage.fillRegistrationForm(newUser1);
+    })
+    await test.step('Register new user' , async () => {
+        await registerPage.fillRegistrationForm(newUser1);
+    })
+    await test.step('Login with created user' , async () => {
+        await loginPage.login(newUser1.email, newUser1.password);
+    })
+    await test.step('Select two items' , async () => {
+        items = await catalogPage.selectProduct();
+    })
+    await test.step('Verify basket counter(visible, qty)' , async () => {
+        await expect(catalogPage.basketCount).toBeVisible();
+        await expect(catalogPage.basketCount).toContainText('2', {timeout: 3000});
+    })
+    await test.step('Go to basket' , async () => {
+        await catalogPage.goToBasket();
+    })
+    await test.step('Verify products details in basket' , async () => {
+        // Check products details
+        await expect(bascketPage.firstProductItem).toHaveText(items.secondProduct.name)
+        await expect(bascketPage.secondProductItem).toHaveText(items.firstProduct.name)
+        await expect(bascketPage.firstItemPrice).toHaveText(items.secondProduct.price)
+        await expect(bascketPage.secondItemPrice).toHaveText(items.firstProduct.price)
+    })
+    await test.step('Verify total price' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        const secondItemPriceNumber = Number((await bascketPage.secondItemPrice.innerText()).replace(/\D/g, ''));
+        const totalNumber = parseInt((await bascketPage.totalValue.innerText()).replace(/[^\d.]/g, ''), 10);
+        expect(totalNumber).toBe(firstItemPriceNumber + secondItemPriceNumber);
+    })
+    await test.step('Go to checkout page' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        await bascketPage.goToChekoutPage();
+    })
+    await test.step('Fill payment data and submit payment' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        await checkoutPage.fillPaymentData(cardData.cardNumber, cardData.cardDate, cardData.cardCVV);
+    })
+    await test.step('Verify successfull order' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        await expect(checkoutPage.successOrder).toBeVisible({timeout: 8000});
+        await expect(checkoutPage.page).toHaveURL('/checkout');
+    })
+    await test.step('Go to my account page' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        await checkoutPage.goToMyAccount();
+        await expect(checkoutPage.page).toHaveURL('/account');
+    })
+    await test.step('Verify total amount in my account page' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        const totalPrice = Number(items.firstProduct.price.replace('$','')) + Number(items.secondProduct.price.replace('$',''));
+        await expect(myAccountPage.totalAmountField).toContainText(`${totalPrice}`);
+    })
+    await test.step('Verify items list' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        await expect(myAccountPage.items.first()).toBeVisible();
+        await expect(myAccountPage.items.last()).toBeVisible();
+        await expect(myAccountPage.logoutButton).toBeEnabled();
+    })
+    await test.step('Logout' , async () => {    const firstItemPriceNumber = Number((await bascketPage.firstItemPrice.innerText()).replace(/\D/g, ''));
+        await myAccountPage.logout();
+    })
 
 });
