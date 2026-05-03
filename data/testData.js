@@ -1,4 +1,6 @@
-const {faker} = require('@faker-js/faker');
+// const {faker} = require('@faker-js/faker');
+import {faker} from '@faker-js/faker';
+
 export const newUser1 = {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),

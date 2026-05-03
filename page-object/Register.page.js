@@ -1,6 +1,3 @@
-import { test } from "@playwright/test";
-import {userData as testData} from "../data/testData";
-
 export class RegisterPage {
     constructor(page) {
         this.page = page;
@@ -18,8 +15,8 @@ export class RegisterPage {
         this.submitButton = page.locator('#register-button');
     }
 
-    async navigate() {
-        await this.page.goto('https://aqa-app.vercel.app/login');
+    async openLoginPage() {
+        await this.page.goto('/login');
     }
 
     async fillRegistrationForm(testData) {
