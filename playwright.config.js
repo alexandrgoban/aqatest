@@ -34,10 +34,26 @@ export default defineConfig({
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    // launchOptions: {
+    //   slowMo: 500,
+    // // },
+    // colorScheme: 'dark',
+    // timezoneId: 'Europe/London',
+    // proxy: {
+    //   server: '127.0.0.1',
+    //   user: '127.0.0.1',
+    //   pass: '127.0.0.1',
+    // },
+    // locale: 'en-US',
+    // geolocation: {
+    //   latitude: 50.4501,
+    //   longitude: 30.5235
+    // },
+    permissions: ['geolocation', 'notifications'],
     timeout: 70 * 1000,
     actionTimeout: 10 * 1000,
     navigationTimeout: 10 * 1000,
-    headless: false,
+    headless: true,
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
@@ -53,6 +69,7 @@ export default defineConfig({
       testMatch: 'auth.setup.js',
       use: {
         baseURL: process.env.UI_BASE_URL,
+        ...devices['Desktop Chrome'],
       }
     },
     {
@@ -62,6 +79,7 @@ export default defineConfig({
       use: {
         baseURL: process.env.UI_BASE_URL,
         storageState: 'data/storageState.json',
+        ...devices['Desktop Chrome'],
       }
       // name: 'chromium',
       // use: { ...devices['Desktop Chrome'],

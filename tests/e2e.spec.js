@@ -1,9 +1,11 @@
-import { test, expect } from '@playwright/test';
+import {test, expect, devices} from '@playwright/test';
 import {cardData} from "../data/testData";
 import {CatalogPage} from "../page-object/Catalog.page";
 import {BascketPage} from "../page-object/Bascket.page";
 import {CheckoutPage} from "../page-object/Checkout.page";
 import {MyAccountPage} from "../page-object/MyAccount.page";
+
+// test.use({...devices['iPhone 12']});
 
 test.describe('E2E order flow', () => {
     test.beforeAll(async () => {
