@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "https://aqa-app.vercel.app",
+      "localStorage": [
+        {
+          "name": "currentUser",
+          "value": "Caleb7@hotmail.com"
+        },
+        {
+          "name": "users",
+          "value": "[{\"firstName\":\"Rachel\",\"lastName\":\"Murphy-Gusikowski\",\"email\":\"Caleb7@hotmail.com\",\"password\":\"123456\",\"city\":\"Fort Marleeville\",\"country\":\"Ukraine\",\"phone\":\"+380981302421\",\"street\":\"Sallie Knoll\",\"zip\":\"12344\"}]"
+        },
+        {
+          "name": "isAuthenticated",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}
